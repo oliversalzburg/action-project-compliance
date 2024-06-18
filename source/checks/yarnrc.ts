@@ -3,9 +3,13 @@ import assert from "node:assert";
 import { readFile, stat } from "node:fs/promises";
 import YAML from "yaml";
 
+/**
+ * Check the project's `/.yarnrc.yml` configuration for the yarn package manager.
+ * @returns `true` if the check passed; `false` otherwise.
+ */
 export const checkYarnrc = async () => {
   const subjectFilename = ".yarnrc.yml";
-  console.info(`Checking '${subjectFilename}'...`);
+  process.stderr.write(`Checking '${subjectFilename}'...\n`);
 
   try {
     const yarnrcExists = await stat(subjectFilename);
@@ -35,7 +39,7 @@ export const checkYarnrc = async () => {
     assert(subject?.plugins[0].spec === "git-hooks", "git-hooks should have expected spec.");
     /* eslint-enable @typescript-eslint/no-unsafe-member-access */
   } catch (error) {
-    console.error("Failure: ", unknownToError(error).message);
+    process.stderr.write(`Failure: ${unknownToError(error).message}\n`);
     return true;
   }
 

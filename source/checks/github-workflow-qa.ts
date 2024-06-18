@@ -3,9 +3,13 @@ import assert from "node:assert";
 import { readFile, stat } from "node:fs/promises";
 import YAML from "yaml";
 
+/**
+ * Check the projects `/.github/workflows/qa.yml` GitHub Actions QA workflow.
+ * @returns `true` if the check passed; `false` otherwise.
+ */
 export const checkGithubWorkflowQA = async () => {
   const subjectFilename = ".github/workflows/qa.yml";
-  console.info(`Checking '${subjectFilename}'...`);
+  process.stderr.write(`Checking '${subjectFilename}'...\n`);
 
   try {
     const workflowQAExists = await stat(subjectFilename);
@@ -27,7 +31,7 @@ export const checkGithubWorkflowQA = async () => {
 
     /* eslint-enable @typescript-eslint/no-unsafe-member-access */
   } catch (error) {
-    console.error("Failure: ", unknownToError(error).message);
+    process.stderr.write(`Failure: ${unknownToError(error).message}\n`);
     return true;
   }
 

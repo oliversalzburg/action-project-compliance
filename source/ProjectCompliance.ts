@@ -1,19 +1,35 @@
 import { checkGithubWorkflowQA } from "./checks/github-workflow-qa.js";
 import { checkYarnrc } from "./checks/yarnrc.js";
 
+/**
+ * Options for the project compliance checker.
+ */
 export interface ProjectComplianceOptions {
+  /**
+   * The type of project we're checking.
+   */
   projectType: "nodejs-library" | "nodejs-cli" | "browser-ui" | "browser-library" | "oci";
 }
 
+/**
+ * Main entrypoint of the project compliance checker.
+ */
 export class ProjectCompliance {
   #options: ProjectComplianceOptions;
 
+  /**
+   * Constructs a new project compliance checker.
+   * @param options - The options for the compliance checker.
+   */
   constructor(options: ProjectComplianceOptions) {
     this.#options = options;
   }
 
+  /**
+   * Execute the compliance check.
+   */
   async main() {
-    console.info("Starting operation...");
+    process.stderr.write("Starting operation...\n");
 
     let failed = false;
     failed = await checkGithubWorkflowQA();
@@ -22,10 +38,10 @@ export class ProjectCompliance {
     }
 
     if (failed) {
-      console.error("Failed.");
+      process.stderr.write("Failed.\n");
       process.exit(1);
     }
 
-    console.info("Done.");
+    process.stderr.write("Done.\n");
   }
 }
