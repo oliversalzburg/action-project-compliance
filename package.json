@@ -4,7 +4,7 @@
   "license": "MIT",
   "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
   "type": "module",
-  "bin": "./output/local.js",
+  "bin": "./output/auto-detect.js",
   "scripts": {
     "build": "node build.js",
     "clean": "rm -rf ./output",

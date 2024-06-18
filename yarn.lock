@@ -603,7 +603,7 @@ __metadata:
     typescript: "npm:5.4.5"
     typescript-eslint: "npm:8.0.0-alpha.30"
   bin:
-    project-compliance: ./output/local.js
+    project-compliance: ./output/auto-detect.js
   languageName: unknown
   linkType: soft
 

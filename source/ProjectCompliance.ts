@@ -1,3 +1,4 @@
+import { ProjectInfo } from "./ProjectInfo.js";
 import { checkGithubWorkflowQA } from "./checks/github-workflow-qa.js";
 import { checkYarnrc } from "./checks/yarnrc.js";
 
@@ -6,9 +7,9 @@ import { checkYarnrc } from "./checks/yarnrc.js";
  */
 export interface ProjectComplianceOptions {
   /**
-   * The type of project we're checking.
+   * Information about the project we're checking.
    */
-  projectType: "nodejs-library" | "nodejs-cli" | "browser-ui" | "browser-library" | "oci";
+  projectInfo: ProjectInfo;
 }
 
 /**
@@ -32,8 +33,10 @@ export class ProjectCompliance {
     process.stderr.write("Starting operation...\n");
 
     let failed = false;
-    failed = await checkGithubWorkflowQA();
-    if (this.#options.projectType !== "oci") {
+    if (this.#options.projectInfo.isGithubHosted) {
+      failed = await checkGithubWorkflowQA();
+    }
+    if (this.#options.projectInfo.isNodeJsProject) {
       failed = await checkYarnrc();
     }
 
