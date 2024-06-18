@@ -21,4 +21,9 @@ export interface ProjectInfo {
    * Does this project produce an OCI image?
    */
   isOciTarget: boolean;
+
+  /**
+   * Where the project is located on disc.
+   */
+  rootDirectory: string;
 }

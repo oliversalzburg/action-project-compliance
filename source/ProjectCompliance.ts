@@ -34,15 +34,18 @@ export class ProjectCompliance {
   async main() {
     process.stderr.write("Starting operation...\n");
 
+    process.chdir(this.#options.projectInfo.rootDirectory);
+    process.stderr.write(`  cwd: '${process.cwd()}'\n`);
+
     let failed = false;
-    failed = await checkEditorconfig();
+    failed = (await checkEditorconfig()) || failed;
 
     if (this.#options.projectInfo.isGithubHosted) {
-      failed = await checkGithubWorkflowQA();
+      failed = (await checkGithubWorkflowQA()) || failed;
     }
     if (this.#options.projectInfo.isNodeJsProject) {
-      failed = await checkPackageJson();
-      failed = await checkYarnrc();
+      failed = (await checkPackageJson()) || failed;
+      failed = (await checkYarnrc()) || failed;
     }
 
     if (failed) {
