@@ -3,10 +3,12 @@ import esbuild from "esbuild";
 esbuild
   .build({
     bundle: true,
-    entryPoints: ["./source/main.ts"],
+    entryPoints: ["./source/local.ts", "./source/main.ts"],
+    external: ["os"],
     format: "esm",
-    outfile: "./output/main.js",
+    inject: ["source/cjs-shim.ts"],
+    outdir: "./output/",
     platform: "node",
-    target: "node18",
+    target: "node20",
   })
   .catch(console.error);

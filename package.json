@@ -1,9 +1,10 @@
 {
   "$schema": "https://json.schemastore.org/package.json",
-  "name": "yarn3-typescript-nodejs-esbuild",
+  "name": "@oliversalzburg/project-compliance",
   "license": "MIT",
   "author": "Oliver Salzburg <oliver.salzburg@gmail.com>",
   "type": "module",
+  "bin": "./output/local.js",
   "scripts": {
     "build": "node build.js",
     "clean": "rm -rf ./output",
@@ -14,6 +15,11 @@
     "lint:tsc": "tsc --noEmit",
     "test": "tsc && node $(yarn bin mocha) output/*.test.js",
     "test:coverage": "tsc && c8 --reporter=html-spa node $(yarn bin mocha) output/*.test.js"
+  },
+  "dependencies": {
+    "@actions/core": "1.10.1",
+    "@actions/github": "5.1.1",
+    "@oliversalzburg/js-utils": "0.0.46"
   },
   "devDependencies": {
     "@eslint/js": "9.5.0",

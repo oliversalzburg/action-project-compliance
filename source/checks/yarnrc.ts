@@ -1,0 +1,43 @@
+import { unknownToError } from "@oliversalzburg/js-utils";
+import assert from "node:assert";
+import { readFile, stat } from "node:fs/promises";
+import YAML from "yaml";
+
+export const checkYarnrc = async () => {
+  const subjectFilename = ".yarnrc.yml";
+  console.info(`Checking '${subjectFilename}'...`);
+
+  try {
+    const yarnrcExists = await stat(subjectFilename);
+    if (!yarnrcExists.isFile()) {
+      throw new Error("Non-file object found.");
+    }
+    const yarnrcContents = await readFile(subjectFilename, "utf-8");
+
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const subject = YAML.parse(yarnrcContents);
+
+    /* eslint-disable @typescript-eslint/no-unsafe-member-access */
+    assert(subject?.compressionLevel === 0, "Compression level must be 0.");
+    assert(subject?.defaultSemverRangePrefix === "", "Dependencies shouldn't use semver ranges.");
+    assert(subject?.enableGlobalCache === false, "Global cache should be disabled.");
+    assert(subject?.enableTelemetry === false, "Telemetry should be disabled.");
+    assert(subject?.logFilters[0].code === "YN0002", "YN0002 should be an error.");
+    assert(subject?.logFilters[0].level === "error", "YN0002 should be an error.");
+    assert(subject?.logFilters[1].code === "YN0060", "YN0060 should be an error.");
+    assert(subject?.logFilters[1].level === "error", "YN0060 should be an error.");
+    assert(subject?.nmMode === "hardlinks-local", "Node modules should use hardlinks.");
+    assert(subject?.nodeLinker === "node-modules", "Linker should be node-modules.");
+    assert(
+      subject?.plugins[0].path === ".yarn/plugins/git-hooks.cjs",
+      "git hooks plugin should be loaded.",
+    );
+    assert(subject?.plugins[0].spec === "git-hooks", "git-hooks should have expected spec.");
+    /* eslint-enable @typescript-eslint/no-unsafe-member-access */
+  } catch (error) {
+    console.error("Failure: ", unknownToError(error).message);
+    return true;
+  }
+
+  return false;
+};
