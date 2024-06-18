@@ -21,6 +21,6 @@
     "types": ["@types/node"],
     "useDefineForClassFields": true
   },
-  "include": ["./@types", "./source"],
+  "include": ["./@types", "./source", "./build.js"],
   "exclude": ["./output"]
 }
