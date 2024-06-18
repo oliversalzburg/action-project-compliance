@@ -584,6 +584,7 @@ __metadata:
     "@oliversalzburg/js-utils": "npm:0.0.46"
     "@types/chai": "npm:4.3.16"
     "@types/eslint": "npm:8.56.10"
+    "@types/ini": "npm:^4"
     "@types/mocha": "npm:10.0.6"
     "@types/node": "npm:20.14.5"
     c8: "npm:10.1.2"
@@ -594,6 +595,7 @@ __metadata:
     eslint-plugin-jsdoc: "npm:48.2.12"
     eslint-plugin-tsdoc: "npm:0.3.0"
     globals: "npm:15.6.0"
+    ini: "npm:4.1.3"
     lint-staged: "npm:15.2.7"
     mocha: "npm:10.4.0"
     prettier: "npm:3.3.2"
@@ -635,6 +637,13 @@ __metadata:
   version: 1.0.5
   resolution: "@types/estree@npm:1.0.5"
   checksum: 10c0/b3b0e334288ddb407c7b3357ca67dbee75ee22db242ca7c56fe27db4e1a31989cb8af48a84dd401deb787fe10cc6b2ab1ee82dc4783be87ededbe3d53c79c70d
+  languageName: node
+  linkType: hard
+
+"@types/ini@npm:^4":
+  version: 4.1.1
+  resolution: "@types/ini@npm:4.1.1"
+  checksum: 10c0/a060753a39f8bd73b615186018f7aded0eeb5698c0cb00e2f92ae495aa44b6351260e27f938891eeb304e28c2d42036bac5793a4e2031eff1df1a47de8cc8a97
   languageName: node
   linkType: hard
 
@@ -2143,6 +2152,13 @@ __metadata:
   version: 2.0.4
   resolution: "inherits@npm:2.0.4"
   checksum: 10c0/4e531f648b29039fb7426fb94075e6545faa1eb9fe83c29f0b6d9e7263aceb4289d2d4557db0d428188eeb449cc7c5e77b0a0b2c4e248ff2a65933a0dee49ef2
+  languageName: node
+  linkType: hard
+
+"ini@npm:4.1.3":
+  version: 4.1.3
+  resolution: "ini@npm:4.1.3"
+  checksum: 10c0/0d27eff094d5f3899dd7c00d0c04ea733ca03a8eb6f9406ce15daac1a81de022cb417d6eaff7e4342451ffa663389c565ffc68d6825eaf686bf003280b945764
   languageName: node
   linkType: hard
 

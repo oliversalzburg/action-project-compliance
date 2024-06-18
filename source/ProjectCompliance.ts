@@ -1,5 +1,7 @@
 import { ProjectInfo } from "./ProjectInfo.js";
+import { checkEditorconfig } from "./checks/editorconfig.js";
 import { checkGithubWorkflowQA } from "./checks/github-workflow-qa.js";
+import { checkPackageJson } from "./checks/nodejs-manifest.js";
 import { checkYarnrc } from "./checks/yarnrc.js";
 
 /**
@@ -33,10 +35,13 @@ export class ProjectCompliance {
     process.stderr.write("Starting operation...\n");
 
     let failed = false;
+    failed = await checkEditorconfig();
+
     if (this.#options.projectInfo.isGithubHosted) {
       failed = await checkGithubWorkflowQA();
     }
     if (this.#options.projectInfo.isNodeJsProject) {
+      failed = await checkPackageJson();
       failed = await checkYarnrc();
     }
 
