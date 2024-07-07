@@ -1,4 +1,4 @@
-import { unknownToError } from "@oliversalzburg/js-utils/error-serializer.js";
+import { unknownToError } from "@oliversalzburg/js-utils/errors/error-serializer.js";
 import { parse } from "ini";
 import assert from "node:assert";
 import { readFile, stat } from "node:fs/promises";
