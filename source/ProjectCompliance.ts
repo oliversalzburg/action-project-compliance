@@ -1,7 +1,7 @@
 import { ProjectInfo } from "./ProjectInfo.js";
 import { checkEditorconfig } from "./checks/editorconfig.js";
 import { checkGithubWorkflowQA } from "./checks/github-workflow-qa.js";
-import { checkPackageJson } from "./checks/nodejs-manifest.js";
+import { checkPackageJson } from "./checks/nodejs-project.js";
 import { checkYarnrc } from "./checks/yarnrc.js";
 
 /**
@@ -34,18 +34,19 @@ export class ProjectCompliance {
   async main() {
     process.stderr.write("Starting operation...\n");
 
-    process.chdir(this.#options.projectInfo.rootDirectory);
+    const projectInfo = this.#options.projectInfo;
+    process.chdir(projectInfo.rootDirectory);
     process.stderr.write(`  cwd: '${process.cwd()}'\n`);
 
     let failed = false;
-    failed = (await checkEditorconfig()) || failed;
+    failed = (await checkEditorconfig(projectInfo)) || failed;
 
     if (this.#options.projectInfo.isGithubHosted) {
-      failed = (await checkGithubWorkflowQA()) || failed;
+      failed = (await checkGithubWorkflowQA(projectInfo)) || failed;
     }
     if (this.#options.projectInfo.isNodeJsProject) {
-      failed = (await checkPackageJson()) || failed;
-      failed = (await checkYarnrc()) || failed;
+      failed = (await checkPackageJson(projectInfo)) || failed;
+      failed = (await checkYarnrc(projectInfo)) || failed;
     }
 
     if (failed) {

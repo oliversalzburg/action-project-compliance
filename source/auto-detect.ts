@@ -10,14 +10,18 @@ import { ProjectInfo } from "./ProjectInfo.js";
 export const main = async (): Promise<void> => {
   const cliArgs = argv.slice(2);
 
+  process.chdir(cliArgs[0] ?? process.cwd());
+
   const hasPackageJson = existsSync("package.json");
   const hasGithub = existsSync(".github");
   const hasIndexHtml = existsSync("index.html");
   const hasDockerfile = existsSync("Dockerfile");
+  const hasActionYml = existsSync("action.yml");
 
   const projectInfo: ProjectInfo = {
-    rootDirectory: cliArgs[0] ?? process.cwd(),
+    rootDirectory: process.cwd(),
     isBrowserTarget: hasIndexHtml,
+    isGithubAction: hasActionYml,
     isGithubHosted: hasGithub,
     isNodeJsProject: hasPackageJson,
     isOciTarget: hasDockerfile,

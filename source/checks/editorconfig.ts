@@ -2,12 +2,14 @@ import { unknownToError } from "@oliversalzburg/js-utils/error-serializer.js";
 import { parse } from "ini";
 import assert from "node:assert";
 import { readFile, stat } from "node:fs/promises";
+import { ProjectInfo } from "../ProjectInfo.js";
 
 /**
  * Check the project's `/.editorconfig` generic IDE/editor configuration.
+ * @param _projectInfo - Information about the test subject.
  * @returns `true` if the check passed; `false` otherwise.
  */
-export const checkEditorconfig = async () => {
+export const checkEditorconfig = async (_projectInfo: ProjectInfo) => {
   const subjectFilename = ".editorconfig";
   process.stderr.write(`Checking '${subjectFilename}'...\n`);
 

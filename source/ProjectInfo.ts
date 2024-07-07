@@ -8,6 +8,11 @@ export interface ProjectInfo {
   isBrowserTarget: boolean;
 
   /**
+   * Is this project a GitHub Action?
+   */
+  isGithubAction: boolean;
+
+  /**
    * Is this project hosted on GitHub, and should integrate with GitHub?
    */
   isGithubHosted: boolean;
