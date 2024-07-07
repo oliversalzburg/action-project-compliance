@@ -1,4 +1,4 @@
-import { redirectErrorsToConsole } from "@oliversalzburg/js-utils/error/console.js";
+import { redirectErrorsToConsole } from "@oliversalzburg/js-utils/errors/console.js";
 import { existsSync } from "node:fs";
 import { argv } from "node:process";
 import { ProjectCompliance } from "./ProjectCompliance.js";
